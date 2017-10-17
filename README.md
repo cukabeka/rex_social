@@ -2,6 +2,8 @@
 
 redaxo4 facebook twitter client
 
+![screenshot](https://user-images.githubusercontent.com/688274/31676291-6b11d270-b367-11e7-98bf-b36e2a143e23.png)
+
 Entwickelt als Methode, um Facebook- und Twitter-Feeds ohne Cookies in die Redaxo-Seite einzubinden.
 
 ## Facebook
