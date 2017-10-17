@@ -25,7 +25,7 @@ Beispiel:
 
 Twitter kann entweder per API oder Widget eingebunden werden.
 
-###Einbindung per API
+### Einbindung per API
 
 Beispiel:
 
