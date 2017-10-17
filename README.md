@@ -28,7 +28,8 @@ Twitter kann entweder per API oder Widget eingebunden werden.
 ###Einbindung per API
 
 Beispiel:
-'RexSocialTwitter::getTweets();
+
+    RexSocialTwitter::getTweets();
         
 Es wird eine App benötigt die unter https://apps.twitter.com erstellt werden kann. Folgende Daten der App müssen anschließend im Admin-Bereich hinterlegt werden:
 
