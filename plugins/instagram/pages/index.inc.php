@@ -21,7 +21,7 @@ if($func=='savesettings')
 {
 	$aSettings = (array) rex_post('settings', 'array', array());
     
-    if(RexSocialTwitter::saveSettings($aSettings))
+    if(RexSocialInstagram::saveSettings($aSettings))
     {
         echo rex_info('Einstellungen wurden gespeichert.');
     }
@@ -32,7 +32,7 @@ if($func=='savesettings')
 }
 else
 {
-    $aSettings = RexSocialTwitter::getSettings(); 
+    $aSettings = RexSocialInstagram::getSettings(); 
 }
 
 $select_1 = new rex_select();
@@ -64,6 +64,8 @@ $select_2->addOptions(
 );
 $select_1->setSelected($aSettings['widget']['theme']);
 
+echo RexSocialInstagram::getItems();
+
 echo '
 
 <style type="text/css">
@@ -86,7 +88,7 @@ echo '
             RexSocialInstagram::getItems();
         </pre>
         <p class="rex-tx1">
-            Es wird eine App benötigt die unter <a href="https://apps.twitter.com">https://apps.twitter.com</a> erstellt werden kann. Folgende Daten der App müssen anschließend im unteren Bereich hinterlegt werden:
+            Es wird eine App benötigt die unter <a href="https://apps.instagram.com">https://apps.instagram.com</a> erstellt werden kann. Folgende Daten der App müssen anschließend im unteren Bereich hinterlegt werden:
             <ul>
                 <li>Consumer Key (API Key) und Consumer Secret (API Secret)</li>
                 <li>Access Token und Access Token Secret</li>

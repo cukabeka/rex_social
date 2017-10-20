@@ -56,7 +56,7 @@ class RexSocialInstagram {
         $getfield = '?screen_name='.self::$aSettings['api']['user'].'';
         $requestMethod = 'GET';
         
-		$instagram = new InstagramAPIExchange(self::$aSettings['api']['tokens']);
+		$instagram = new rex_yfeed_stream_instagram_user;##::fetchItemsFromFrontendApi(self::$aSettings['api']['tokens']);
         $sTweets = $instagram->setGetfield($getfield)
             ->buildOauth($url, $requestMethod)
             ->performRequest();

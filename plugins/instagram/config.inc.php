@@ -9,8 +9,10 @@ $REX['ADDON']['author'][$page] = 'cukabeka';
 $REX['ADDON']['supportpage'][$page] = 'forum.redaxo.de';
 $REX['EXTPERM'][] = $parent.'['.$page.']';
 
+require_once $root.'classes/stream_abstract.php';
 require_once $root.'libs/instagram.php';
-require_once $root.'classes/RexSocialTwitter.php';
+require_once $root.'classes/instagram_user.php';
+require_once $root.'classes/RexSocialInstagram.php';
 
 if(class_exists('RexSocialInstagram')) {$rexSocialInstagram = new RexSocialInstagram();}
 
