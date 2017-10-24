@@ -1,5 +1,9 @@
 <?php
 
+require_once $REX['INCLUDE_PATH'] . '/addons/rex_social/plugins/instagram/libs/InstagramScraper.php';
+
+use InstagramScraper\Instagram;
+
 class RexSocialInstagram {
     
 	private static $aSettings;
@@ -40,28 +44,46 @@ class RexSocialInstagram {
 	{
         self::$aSettings = self::getSettings();
         
-        $sWidget = '
-            <a class="instagram-timeline" href="https://instagram.com/'.self::$aSettings['widget']['user'].'" data-widget-id="705165645072228352" data-chrome="'.implode(' ',self::$aSettings['widget']['chrome']).'" data-tweet-limit="'.self::$aSettings['widget']['tweetLimit'].'" data-theme="'.self::$aSettings['widget']['theme'].'">Tweets von @'.self::$aSettings['widget']['user'].'</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.instagram.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","instagram-wjs");</script>
-        ';
+        $sWidget = 'instagram widget ';
         
         return $sWidget;
 	}
 	
-	public static function getItems()
+	public static function getMedias()
 	{
         self::$aSettings = self::getSettings();
-        
-        $url = 'https://api.instagram.com/1.1/statuses/user_timeline.json';
-        $getfield = '?screen_name='.self::$aSettings['api']['user'].'';
-        $requestMethod = 'GET';
-        
-		$instagram = new rex_yfeed_stream_instagram_user;##::fetchItemsFromFrontendApi(self::$aSettings['api']['tokens']);
-        $sTweets = $instagram->setGetfield($getfield)
-            ->buildOauth($url, $requestMethod)
-            ->performRequest();
-            
-        return json_decode($sTweets, true);
+		
+		return Instagram::getMedias(self::$aSettings['username'],100);
+	}
+	
+	public static function getSnippet()
+	{
+        $aMedias = self::getMedias();
+		if(!empty($aMedias))
+		{
+			$sSnippet = '';
+			foreach($aMedias as $oMedia)
+			{
+				$sSnippet .= '
+					<div class="entry">
+						<div class="header">
+							<div class="avatar"><a target="_blank" href="https://www.instagram.com/'.$oMedia->getCaption()['from']['username'].'"><img src="'.$oMedia->getCaption()['from']['profile_picture'].'"></a></div>
+							<div class="author"><a target="_blank" href="https://www.instagram.com/'.$oMedia->getCaption()['from']['username'].'">'.$oMedia->getCaption()['from']['full_name'].'</a></div>
+							<div class="date"><a target="_blank" href="'.$oMedia->getLink().'">am '.date('d.m.Y',$oMedia->getCreatedTime()).' um '.date('h:i',$oMedia->getCreatedTime()).'</a></div>
+						</div>
+						<div class="message">'.$oMedia->getCaption()['text'].'</div>
+						<div class="picture"><img src="'.$oMedia->getImageThumbnailUrl().'"></div>
+						<div class="functions">
+							<a target="_blank" href="'.$oMedia->getLink().'">Auf Instagram ansehen</a>
+						</div>
+					</div>
+				';
+			}
+			
+			return $sSnippet;
+		}
+		
+		return false;
 	}
 }
   
